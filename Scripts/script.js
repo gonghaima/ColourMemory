@@ -19,19 +19,11 @@ app
             $http.get(apiUri).success(function (data) {
                 $scope.players = data;
                 $scope.players = $scope.players.sortBy('score').reverse();
-                //$scope.players = _.map(_.sortBy($scope.players, ['score']), _.values).reverse();
-                //$scope.myRanking = _.indexOf($scope.players, $scope.currentPlayer);
-                //$scope.showRankings = true;
-                
             });
         }
         $scope.listPlayers();
         $scope.currentPlayer = {};
-        //$scope.currentPlayer = { "name": "Bob", "email": "bob@gmail.com", "score": 5, "id": "cc8f752f8393383c" };
         $scope.currentPlayer.score = 0;
-        
-
-        //$scope.showForm = true;
 
         //create a player
         $scope.createPlayer = function (currentPlayer) {
@@ -40,13 +32,6 @@ app
                 .success(function (data) {
                     $scope.currentPlayer = data;
 
-                    //show top players
-                    //$scope.listPlayers().then(function () {
-                    //    $scope.myRanking = _.indexOf($scope.players, $scope.currentPlayer);
-                    //    if ($scope.myRanking = -1) {
-                    //        $scope.myRanking = $scope.players.length();
-                    //    }
-                    //});
                     $scope.players.push($scope.currentPlayer);
                     $scope.players = $scope.players.sortBy('score').reverse();
                     $scope.myRanking = _.indexOf($scope.players, $scope.currentPlayer);
@@ -74,7 +59,7 @@ app
     $scope.showGreetings = false;
     $scope.showform= false;
 
-    //randomize an array
+    //function randomize an array
     var shuffleArray = function (array) {
         var m = array.length, t, i;
 
@@ -93,23 +78,21 @@ app
     }
 
     $scope.records = [];
-    $scope.colors = ['Images/colour1.png', 'Images/colour1.png',
-        'Images/colour2.png', 'Images/colour2.png',
- 'Images/colour3.png', 'Images/colour3.png',
- 'Images/colour4.png', 'Images/colour4.png',
- 'Images/colour5.png', 'Images/colour5.png',
- 'Images/colour6.png', 'Images/colour6.png',
-        'Images/colour7.png', 'Images/colour7.png',
-        'Images/colour8.png', 'Images/colour8.png'];
+
+        //initialize 8 pairs of colours
+    $scope.colors = [];
+    for(i=1;i<=8;i++){
+        $scope.colors.push('Images/colour' + i + '.png');
+        $scope.colors.push('Images/colour' + i + '.png');
+    }
     $scope.defaultOverlayColour = "Images/card_bg.png";
     //get a random colour array
     $scope.randomColors = shuffleArray($scope.colors);
 
     //hold current active element
-    //$scope.activeElementIndex = -1;
     $scope.activeRecord = null;
 
-    //assign ramdom color to list
+    //assign random color to list
     //active 0-no 1-yes 2-done
     for (var i = 1; i <= 16; i++) {
         $scope.records.push({
@@ -129,7 +112,6 @@ app
             if ($scope.records[i].navIndex !== index) { continue; }
             record = $scope.records[i];
         }
-        //console.log('opening : ', record);
     };
 
     $scope.keys = [];
@@ -193,7 +175,7 @@ app
 
                         //correct pair count increase, hide play panel/show greetings if all correct
                         $scope.correctPair += 2;
-                        console.log("correct Pair number: " + $scope.correctPair);
+                        //console.log("correct Pair number: " + $scope.correctPair);
                         if ($scope.correctPair == 16) {
                             //greeting message
                             $scope.greetings = "Congratulations, " + $scope.attemptCount + " attempts. Scores: " + $scope.currentPlayer.score;
@@ -207,7 +189,7 @@ app
                         $scope.records[trueIndex].defaultColour = $scope.defaultOverlayColour;
                         $scope.records[$scope.activeRecord.navIndex - 1].defaultColour = $scope.defaultOverlayColour;
                         $scope.records[trueIndex].active = 0;
-                        console.log($scope.activeRecord.navIndex);
+                        //console.log($scope.activeRecord.navIndex);
                         $scope.records[$scope.activeRecord.navIndex - 1].active = 0;
                         $scope.activeRecord = null;
                     }

@@ -1,44 +1,17 @@
 <!DOCTYPE html>
 <html ng-app='test'>
-
 <head>
-    <!--<script data-require="angular.js@1.0.7" data-semver="1.0.7" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>-->
-
-    <script src="Scripts/lodash.js"></script> 
-    <script src="Scripts/angular.min.js"></script>
     <link href="Scripts/bootstrap.css" rel="stylesheet" />
     <link href="Scripts/bootstrap-theme.css" rel="stylesheet" />
     <link href="Styles/style.css" rel="stylesheet" />
-    <script src="Scripts/script.js"></script>
 </head>
-
 <body key-trap class=" panel-body">
     <div class="col-md-2 col-xd-1"></div>
     <div class="col-md-6 col-xd-6">
         <div ng-controller="testCtrl">
-            <!--<div ng-hide="showGreetings" ng-repeat="record in records" style="background-image: url('{{record.defaultColour}}');background-repeat: no-repeat;background-size: 100%;"
-                 class="record col-md-3 col-xs-3 img-thumbnail"
-                 ng-class="{'record-highlight': record.navIndex == focusIndex}">
-
-            </div>-->
-            <img ng-hide="showGreetings" ng-repeat="record in records" src='{{record.defaultColour}}'
+            <img ng-hide="showGreetings" ng-repeat="record in records" ng-src='{{record.defaultColour}}'
                  class="record col-md-3 col-xs-3 img-thumbnail"
                  ng-class="{'record-highlight': record.navIndex == focusIndex}" />
-
-            <!--<div class="panel-body" ng-hide="showGreetings">
-                <h1>Congratulations, {{attemptCount}} attempts.</h1>
-                <form class="form-inline" role="form">
-                    <div class="form-group">
-                        <label for="username">Name</label>
-                        <input type="password" class="form-control" id="username">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email address:</label>
-                        <input type="email" class="form-control" id="email">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-            </div>-->
 
             <form ng-show="showGreetings" class="form-horizontal">
                 <div class="form-group panel-heading">
@@ -64,9 +37,6 @@
                         <button ng-click="createPlayer(currentPlayer)" class="btn btn-success btn-lg">
                             <span class="glyphicon glyphicon-plus glyphicon-envelope"></span> Send
                         </button>
-                        <button ng-click="listPlayers()" class="btn btn-success btn-lg">
-                            <span class="glyphicon glyphicon-plus glyphicon-envelope"></span> Get Players
-                        </button>
                     </div>
                 </div>
             </form>
@@ -91,9 +61,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!--<h3 ng-repeat="player in players | limitTo: 5">
-                    -- Score: {{player.score}} -- Name: {{player.name}}  --  Email: {{player.email}}--
-                </h3>-->
                 <h2>Your ranking is: {{myRanking}}</h2>
             </div>
         </div>
@@ -112,14 +79,14 @@
 
         </div>
 
-
         <div class="panel-body">
             <button class="btn btn-success btn-lg" onclick="javacript: location.reload();">
                 <span class="glyphicon glyphicon-plus glyphicon-refresh"></span> Restart
             </button>
         </div>
     </div>
-
+    <script src="Scripts/lodash.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/script.js"></script>
 </body>
-
 </html>
