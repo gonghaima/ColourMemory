@@ -1,13 +1,78 @@
-var app = angular.module('test', []);
+/// <reference path="angular.min.js" />
 
-app.controller('testCtrl', function ($scope) {
+var app = angular.module('test', []);
+app
+    .constant("apiUri", "http://54.66.218.13:2403/players")
+    .controller('testCtrl', function ($scope, $http, $filter, apiUri) {
+
+        //prototype sort
+        Array.prototype.sortBy = function (p) {
+            return this.slice(0).sort(function (a, b) {
+                return (a[p] > b[p]) ? 1 : (a[p] < b[p]) ? -1 : 0;
+            });
+        }
+
+        //get Players list
+        $scope.showRankings = false;
+        $scope.Rankedplayers = [];
+        $scope.listPlayers= function () {
+            $http.get(apiUri).success(function (data) {
+                $scope.players = data;
+                $scope.players = $scope.players.sortBy('score').reverse();
+                //$scope.players = _.map(_.sortBy($scope.players, ['score']), _.values).reverse();
+                //$scope.myRanking = _.indexOf($scope.players, $scope.currentPlayer);
+                //$scope.showRankings = true;
+                
+            });
+        }
+        $scope.listPlayers();
+        $scope.currentPlayer = {};
+        //$scope.currentPlayer = { "name": "Bob", "email": "bob@gmail.com", "score": 5, "id": "cc8f752f8393383c" };
+        $scope.currentPlayer.score = 0;
+        
+
+        //$scope.showForm = true;
+
+        //create a player
+        $scope.createPlayer = function (currentPlayer) {
+            $scope.showform = false;
+            $http.post(apiUri, currentPlayer)
+                .success(function (data) {
+                    $scope.currentPlayer = data;
+
+                    //show top players
+                    //$scope.listPlayers().then(function () {
+                    //    $scope.myRanking = _.indexOf($scope.players, $scope.currentPlayer);
+                    //    if ($scope.myRanking = -1) {
+                    //        $scope.myRanking = $scope.players.length();
+                    //    }
+                    //});
+                    $scope.players.push($scope.currentPlayer);
+                    $scope.players = $scope.players.sortBy('score').reverse();
+                    $scope.myRanking = _.indexOf($scope.players, $scope.currentPlayer);
+                    if ($scope.myRanking = -1) {
+                        $scope.myRanking = $scope.players.length;
+                    }
+                    
+                    $scope.showRankings = true;
+                    $scope.showGreetings = true;
+
+                }).error(function (data, status, headers, config) {
+                    console.log("error");
+                    return status;
+                });
+        }
+
     //total attempt
-    $scope.attemptCount = 0;
+        $scope.attemptCount = 0;
+
+        
     //correct pair
     $scope.correctPair = 0;
 
-    //flag - show greetings
+    //flag - show greetings - show form
     $scope.showGreetings = false;
+    $scope.showform= false;
 
     //randomize an array
     var shuffleArray = function (array) {
@@ -105,11 +170,6 @@ app.controller('testCtrl', function ($scope) {
     $scope.keys.push({
         //key enter
         code: 13, action: function (elementIndex) {
-            //var element = $event.target;
-            //console.log($scope.records[elementIndex]);
-            //$scope.records[elementIndex].defaultColor = $scope.records[elementIndex].color;
-            //currentStyle = "{'background-color':'" + $scope.records[elementIndex].color + "'}";
-            //currentStyle = { 'background-color': 'blue' }
 
             var trueIndex = elementIndex - 1;
 
@@ -121,7 +181,9 @@ app.controller('testCtrl', function ($scope) {
                     $scope.attemptCount++;
                     //if match, diable two records
                     if ($scope.records[trueIndex].color == $scope.activeRecord.color) {
-                        
+                        //get one score
+                        $scope.currentPlayer.score++;
+
                         //disable the two matched record
                         $scope.records[trueIndex].defaultColour = "Images/bigSmiles.png";
                         $scope.records[trueIndex].active = 2;
@@ -133,9 +195,15 @@ app.controller('testCtrl', function ($scope) {
                         $scope.correctPair += 2;
                         console.log("correct Pair number: " + $scope.correctPair);
                         if ($scope.correctPair == 16) {
+                            //greeting message
+                            $scope.greetings = "Congratulations, " + $scope.attemptCount + " attempts. Scores: " + $scope.currentPlayer.score;
                             $scope.showGreetings = true;
+                            $scope.showform = true;
                         }
                     } else {//otherwise, turn both record back to default colour, reset active record to empty
+                        //lose one scope
+                        $scope.currentPlayer.score--;
+
                         $scope.records[trueIndex].defaultColour = $scope.defaultOverlayColour;
                         $scope.records[$scope.activeRecord.navIndex - 1].defaultColour = $scope.defaultOverlayColour;
                         $scope.records[trueIndex].active = 0;
@@ -163,7 +231,7 @@ app.controller('testCtrl', function ($scope) {
 
 });
 
-
+//detecting key stroke
 app.directive('keyTrap', function () {
     return function (scope, elem) {
         elem.bind('keydown', function (event) {

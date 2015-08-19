@@ -1,23 +1,17 @@
 
 body{
     background-color:black;
+    color:white;
 }
 img.record {
     height: 200px;
     background-color: lightgray;
     border-color: black;
-    /*margin: 10px;
-    padding: 10px;*/
-    /*width: 200px;*/
 }
 img.record-highlight {
     height: 200px;
     border:double;
     border-color:#000000;
-    /*margin: 10px;
-    padding: 10px;*/
-    /*width: 200px;*/
-    /*color: #000000;*/
     opacity:0.2;
 
 }

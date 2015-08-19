@@ -1,34 +1,125 @@
 <!DOCTYPE html>
 <html ng-app='test'>
 
-  <head>
-    <script data-require="angular.js@1.0.7" data-semver="1.0.7" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-      <link href="Scripts/bootstrap.css" rel="stylesheet" />
-      <link href="Scripts/bootstrap-theme.css" rel="stylesheet" />
-      <link href="Styles/style.css" rel="stylesheet" />
-      <script src="Scripts/script.js"></script>
-  </head>
+<head>
+    <!--<script data-require="angular.js@1.0.7" data-semver="1.0.7" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>-->
 
-  <body key-trap class=" panel-body">
-      <div class="col-md-3 col-xd-3"></div>
-      <div class="col-md-6 col-xd-6">
-          <div ng-controller="testCtrl">
-              <!--<div ng-hide="showGreetings" ng-repeat="record in records" style="background-image: url('{{record.defaultColour}}');background-repeat: no-repeat;background-size: 100%;"
-                   class="record col-md-3 col-xs-3 img-thumbnail"
-                   ng-class="{'record-highlight': record.navIndex == focusIndex}">
-                 
-              </div>-->
-              <img ng-hide="showGreetings" ng-repeat="record in records" src='{{record.defaultColour}}'
-                   class="record col-md-3 col-xs-3 img-thumbnail"
-                   ng-class="{'record-highlight': record.navIndex == focusIndex}"/>
+    <script src="Scripts/lodash.js"></script> 
+    <script src="Scripts/angular.min.js"></script>
+    <link href="Scripts/bootstrap.css" rel="stylesheet" />
+    <link href="Scripts/bootstrap-theme.css" rel="stylesheet" />
+    <link href="Styles/style.css" rel="stylesheet" />
+    <script src="Scripts/script.js"></script>
+</head>
 
-              <div ng-show="showGreetings">
-                  <h1>Congratulations, {{attemptCount}} attempts.</h1>
-              </div>
-          </div>
-      </div>
-      <div class="col-md-3 col-xd-3"></div>
-    
-  </body>
+<body key-trap class=" panel-body">
+    <div class="col-md-2 col-xd-1"></div>
+    <div class="col-md-6 col-xd-6">
+        <div ng-controller="testCtrl">
+            <!--<div ng-hide="showGreetings" ng-repeat="record in records" style="background-image: url('{{record.defaultColour}}');background-repeat: no-repeat;background-size: 100%;"
+                 class="record col-md-3 col-xs-3 img-thumbnail"
+                 ng-class="{'record-highlight': record.navIndex == focusIndex}">
+
+            </div>-->
+            <img ng-hide="showGreetings" ng-repeat="record in records" src='{{record.defaultColour}}'
+                 class="record col-md-3 col-xs-3 img-thumbnail"
+                 ng-class="{'record-highlight': record.navIndex == focusIndex}" />
+
+            <!--<div class="panel-body" ng-hide="showGreetings">
+                <h1>Congratulations, {{attemptCount}} attempts.</h1>
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label for="username">Name</label>
+                        <input type="password" class="form-control" id="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>-->
+
+            <form ng-show="showGreetings" class="form-horizontal">
+                <div class="form-group panel-heading">
+                    <div class="col-md-offset-2 col-xs-10">
+                        <h1>{{greetings}}</h1>
+                    </div>
+                </div>
+                <div ng-show="showform" class="form-group panel-body">
+                    <label for="inputUserName" class="control-label col-xs-2">Name</label>
+                    <div class="col-xs-10">
+                        <input ng-model="currentPlayer.name" type="text" class="form-control" id="inputUserName" placeholder="Name">
+                    </div>
+                </div>
+                <div ng-show="showform" class="form-group panel-body">
+                    <label for="inputEmail" class="control-label col-xs-2">Email</label>
+                    <div class="col-xs-10">
+                        <input ng-model="currentPlayer.email" type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    </div>
+                </div>
+               
+                <div ng-show="showform" class="form-group panel-body">
+                    <div class="col-xs-offset-2 col-xs-10">
+                        <button ng-click="createPlayer(currentPlayer)" class="btn btn-success btn-lg">
+                            <span class="glyphicon glyphicon-plus glyphicon-envelope"></span> Send
+                        </button>
+                        <button ng-click="listPlayers()" class="btn btn-success btn-lg">
+                            <span class="glyphicon glyphicon-plus glyphicon-envelope"></span> Get Players
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div ng-show="showRankings" class="col-md-offset-2 col-xs-10">
+                <h1>Top Players</h1>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Score</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="player in players | limitTo: 5">
+                                <td>{{player.score}}</td>
+                                <td>{{player.name}}</td>
+                                <td>{{player.email}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--<h3 ng-repeat="player in players | limitTo: 5">
+                    -- Score: {{player.score}} -- Name: {{player.name}}  --  Email: {{player.email}}--
+                </h3>-->
+                <h2>Your ranking is: {{myRanking}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 col-md-offset-1 col-xd-5 control-group">
+        <div><img src="Images/logo.png" /></div>
+        <div>
+            <h3>Game Info</h3>
+            <h4>
+                Memory has long been a favorite game for all generations. It is easy to play, in fact it is so simple that really young children can play with ease.
+
+                It requires observation, concentration and a good memory to win.
+
+                Although the game is designed so two players play against each other it can also be played by a single player.
+            </h4>
+
+        </div>
+
+
+        <div class="panel-body">
+            <button class="btn btn-success btn-lg" onclick="javacript: location.reload();">
+                <span class="glyphicon glyphicon-plus glyphicon-refresh"></span> Restart
+            </button>
+        </div>
+    </div>
+
+</body>
 
 </html>
