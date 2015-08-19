@@ -28,15 +28,15 @@ app.controller('testCtrl', function ($scope) {
     }
 
     $scope.records = [];
-    $scope.colors = ['#0EE836', '#0EE836',
-        '#D6E80E', '#D6E80E',
- '#E80E69', '#E80E69',
- '#E8410E', '#E8410E',
- '#650EE8', '#650EE8',
- '#A1892A', '#A1892A',
-        '#200EE8', '#200EE8',
-        '#0EE88D', '#0EE88D'];
-    $scope.defaultOverlayColour = "lightgray";
+    $scope.colors = ['Images/colour1.png', 'Images/colour1.png',
+        'Images/colour2.png', 'Images/colour2.png',
+ 'Images/colour3.png', 'Images/colour3.png',
+ 'Images/colour4.png', 'Images/colour4.png',
+ 'Images/colour5.png', 'Images/colour5.png',
+ 'Images/colour6.png', 'Images/colour6.png',
+        'Images/colour7.png', 'Images/colour7.png',
+        'Images/colour8.png', 'Images/colour8.png'];
+    $scope.defaultOverlayColour = "Images/card_bg.png";
     //get a random colour array
     $scope.randomColors = shuffleArray($scope.colors);
 
@@ -123,9 +123,9 @@ app.controller('testCtrl', function ($scope) {
                     if ($scope.records[trueIndex].color == $scope.activeRecord.color) {
                         
                         //disable the two matched record
-                        $scope.records[trueIndex].defaultColour = "#000";
+                        $scope.records[trueIndex].defaultColour = "Images/bigSmiles.png";
                         $scope.records[trueIndex].active = 2;
-                        $scope.records[$scope.activeRecord.navIndex - 1].defaultColour = "#000";
+                        $scope.records[$scope.activeRecord.navIndex - 1].defaultColour = "Images/bigSmiles.png";
                         $scope.records[$scope.activeRecord.navIndex - 1].active = 2;
                         $scope.activeRecord = null;
 

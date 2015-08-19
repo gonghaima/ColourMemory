@@ -9,26 +9,26 @@
       <script src="Scripts/script.js"></script>
   </head>
 
-  <body key-trap>
-    <div ng-controller="testCtrl">
-      
-        <!--<div ng-repeat="record in records" style="background-color:{{record.color}}" class="record col-md-3 col-xs-3 img-thumbnail" ng-class="{'record-highlight': record.navIndex == focusIndex}">-->
-        <!--<div ng-repeat="record in records" ng-style="currentStyle" 
-             class="record col-md-3 col-xs-3 img-thumbnail" 
-             ng-class="{'record-highlight': record.navIndex == focusIndex}">
-          {{ record.name }}
-        </div>-->
+  <body key-trap class=" panel-body">
+      <div class="col-md-3 col-xd-3"></div>
+      <div class="col-md-6 col-xd-6">
+          <div ng-controller="testCtrl">
+              <!--<div ng-hide="showGreetings" ng-repeat="record in records" style="background-image: url('{{record.defaultColour}}');background-repeat: no-repeat;background-size: 100%;"
+                   class="record col-md-3 col-xs-3 img-thumbnail"
+                   ng-class="{'record-highlight': record.navIndex == focusIndex}">
+                 
+              </div>-->
+              <img ng-hide="showGreetings" ng-repeat="record in records" src='{{record.defaultColour}}'
+                   class="record col-md-3 col-xs-3 img-thumbnail"
+                   ng-class="{'record-highlight': record.navIndex == focusIndex}"/>
 
-        <div ng-hide="showGreetings" ng-repeat="record in records" style="background-color:{{record.defaultColour}}"
-             class="record col-md-3 col-xs-3 img-thumbnail"
-             ng-class="{'record-highlight': record.navIndex == focusIndex}">
-            {{ record.name }}
-        </div>
-        <div ng-show="showGreetings">
-            <h1>Congratulations, {{attemptCount}} attempts.</h1>
-        </div>
-      
-    </div>
+              <div ng-show="showGreetings">
+                  <h1>Congratulations, {{attemptCount}} attempts.</h1>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-xd-3"></div>
+    
   </body>
 
 </html>
