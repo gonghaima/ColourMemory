@@ -104,7 +104,7 @@ app
         });
     }
 
-    $scope.focusIndex = 0;
+    $scope.focusIndex = 1;
 
     $scope.open = function (index) {
         var record;
