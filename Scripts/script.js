@@ -183,15 +183,23 @@ app
                             $scope.showform = true;
                         }
                     } else {//otherwise, turn both record back to default colour, reset active record to empty
+                        //otherwise, turn active record to default colour, set active record to current record
                         //lose one scope
                         $scope.currentPlayer.score--;
 
-                        $scope.records[trueIndex].defaultColour = $scope.defaultOverlayColour;
-                        $scope.records[$scope.activeRecord.navIndex - 1].defaultColour = $scope.defaultOverlayColour;
-                        $scope.records[trueIndex].active = 0;
-                        //console.log($scope.activeRecord.navIndex);
+                        //$scope.records[trueIndex].defaultColour = $scope.defaultOverlayColour;
+                        //$scope.records[$scope.activeRecord.navIndex - 1].defaultColour = $scope.defaultOverlayColour;
+                        //$scope.records[trueIndex].active = 0;
+                        //$scope.records[$scope.activeRecord.navIndex - 1].active = 0;
+                        //$scope.activeRecord = null;
+
+                        //current record become active
+                        $scope.records[trueIndex].defaultColour = $scope.records[trueIndex].color;
+                        $scope.records[trueIndex].active = 1;
+
                         $scope.records[$scope.activeRecord.navIndex - 1].active = 0;
-                        $scope.activeRecord = null;
+                        $scope.records[$scope.activeRecord.navIndex - 1].defaultColour = $scope.defaultOverlayColour;
+                        $scope.activeRecord = $scope.records[trueIndex];
                     }
                 } else {
                     $scope.records[trueIndex].defaultColour = $scope.records[trueIndex].color;
