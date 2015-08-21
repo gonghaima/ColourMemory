@@ -15,7 +15,7 @@ the cards are removed from the game board. Otherwise, the player loses one
 point and the cards are turned face-down again. This continues until all pairs
 have been found.
 
-Use keyboard to complete the game
-1. Up, Down, Left, Right to navigate
-2. Enter to select
+Use keyboard to complete the game 
+-    Up, Down, Left, Right to navigate
+-    Enter to select
 
